@@ -1,0 +1,14 @@
+{
+  "name": "한림대학교 학생 생활관 (Hallym Dorm)",
+  "description": "한림대학교 관생들을 위한 민원 신청, 상벌점 조회, 외박 신청, 오늘의 식단, 실시간 세탁실 현황 및 커뮤니티 통합 플랫폼",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "Firebase Firestore",
+    "Firebase Auth",
+    "Real-time Laundry Monitoring",
+    "Community Board"
+  ]
+}

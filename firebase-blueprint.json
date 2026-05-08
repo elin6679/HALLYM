@@ -1,0 +1,162 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile for students and admins",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "studentId": { "type": "string" },
+        "dormRoom": { "type": "string" },
+        "phone": { "type": "string" },
+        "role": { "type": "string", "enum": ["student", "admin"] },
+        "penaltyPoints": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "studentId", "role"]
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "description": "Facility repair or civil complaint",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "in-progress", "completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "description", "status"]
+    },
+    "PenaltyPoint": {
+      "title": "Penalty Point Record",
+      "description": "History of merit and demerit points",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "reason": { "type": "string" },
+        "points": { "type": "number" },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "reason", "points", "date"]
+    },
+    "Sleepout": {
+      "title": "Sleepout Application",
+      "description": "Request for staying out overnight",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "startDate", "endDate", "status"]
+    },
+    "Laundry": {
+      "title": "Laundry Machine",
+      "description": "Status of washers and dryers",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["washer", "dryer"] },
+        "machineIndex": { "type": "number" },
+        "status": { "type": "string", "enum": ["available", "in-use", "broken"] },
+        "userId": { "type": "string" },
+        "startTime": { "type": "string", "format": "date-time" },
+        "durationMinutes": { "type": "number" }
+      },
+      "required": ["type", "machineIndex", "status"]
+    },
+    "Menu": {
+      "title": "Daily Menu",
+      "description": "Meal menu for the dormitory cafeteria",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "breakfast": { "type": "string" },
+        "lunch": { "type": "string" },
+        "dinner": { "type": "string" },
+        "operatingHours": { "type": "object" }
+      },
+      "required": ["date"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Important notices for residents",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "importance": { "type": "string", "enum": ["normal", "urgent"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content", "importance"]
+    },
+    "Post": {
+      "title": "Community Post",
+      "description": "Posts in the community board or marketplace",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string", "enum": ["anonymous", "market"] },
+        "imageUrl": { "type": "string" },
+        "price": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorId", "title", "content", "category"]
+    },
+    "Comment": {
+      "title": "Post Comment",
+      "description": "Comments on community posts",
+      "type": "object",
+      "properties": {
+        "authorId": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorId", "content"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "complaints/{complaintId}": {
+      "schema": "Complaint",
+      "description": "Civil complaints and facility repairs"
+    },
+    "penalty_points/{pointId}": {
+      "schema": "PenaltyPoint",
+      "description": "Records of merit and demerit points"
+    },
+    "sleepouts/{sleepoutId}": {
+      "schema": "Sleepout",
+      "description": "Sleepout applications"
+    },
+    "laundry/{machineId}": {
+      "schema": "Laundry",
+      "description": "Laundry machine status"
+    },
+    "menus/{date}": {
+      "schema": "Menu",
+      "description": "Daily cafeteria menus"
+    },
+    "announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Emergency and general announcements"
+    },
+    "posts/{postId}": {
+      "schema": "Post",
+      "description": "Community and market posts"
+    },
+    "posts/{postId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on posts"
+    }
+  }
+}
